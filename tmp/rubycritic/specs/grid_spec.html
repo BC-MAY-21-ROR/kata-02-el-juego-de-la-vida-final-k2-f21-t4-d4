@@ -52,7 +52,7 @@
       </span>
     </div>
     <div>
-      <h3><small>game /</small> game.rb</h3>
+      <h3><small>specs /</small> grid_spec.rb</h3>
     </div>
   </div>
   <!--End Page Title -->
@@ -68,7 +68,7 @@
           </div>
           <div class="code-statistics col-md-11">
             <div class="col-md-3">
-              <div><span class="metric">12</span><small> lines of codes</small></div>
+              <div><span class="metric">10</span><small> lines of codes</small></div>
               <div><span class="metric">0</span><small> methods</small></div>
             </div>
             <div class="col-md-3">
@@ -76,7 +76,7 @@
               <div><span class="metric">1</span><small> churn</small></div>
             </div>
             <div class="col-md-3">
-              <div><span class="metric">0.0</span><small> complexity</small></div>
+              <div><span class="metric">17.12</span><small> complexity</small></div>
               <div><span class="metric">0</span><small> duplications</small></div>
             </div>
           </div>
@@ -97,18 +97,16 @@
       </div>
     </div>
 
-    <code class="prettyprint linenums lang-ruby file-code js-file-code"># frozen_string_literal: true
+    <code class="prettyprint linenums lang-ruby file-code js-file-code">require &#39;rspec&#39;
+require_relative &#39;../game/grid&#39;
 
-require_relative &#39;grid&#39;
-
-game = Grid.new(4, 8)
-game.print_grid
-game.analyze_cells
-puts
-game.print_grid
-game.analyze_cells
-puts
-game.print_grid
+describe Grid do
+    it &quot;.print_grid&quot; do 
+        grid = Grid.new(3, 3)
+        grid.matrix.each {|row| row.each { |cell| cell.born } }
+        expect{grid.print_grid}.to output(&quot;***\n***\n***\n&quot;).to_stdout
+    end
+end
 </code>
   </div>
 </div>

@@ -47,7 +47,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Never committed
+          Updated <time class='js-timeago' datetime='2022-02-21 18:08:49 -0600'>2022-02-21 18:08:49 -0600</time>
         
       </span>
     </div>
@@ -68,12 +68,12 @@
           </div>
           <div class="code-statistics col-md-11">
             <div class="col-md-3">
-              <div><span class="metric">52</span><small> lines of codes</small></div>
-              <div><span class="metric">9</span><small> methods</small></div>
+              <div><span class="metric">54</span><small> lines of codes</small></div>
+              <div><span class="metric">8</span><small> methods</small></div>
             </div>
             <div class="col-md-3">
-              <div><span class="metric">5.6</span><small> complexity/method</small></div>
-              <div><span class="metric">0</span><small> churn</small></div>
+              <div><span class="metric">6.3</span><small> complexity/method</small></div>
+              <div><span class="metric">1</span><small> churn</small></div>
             </div>
             <div class="col-md-3">
               <div><span class="metric">50.54</span><small> complexity</small></div>
@@ -88,7 +88,7 @@
             <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
             <li class="active">
               <a href="#" id="toggle-smells" class="toggle-button button">
-                3
+                5
                 smells
               </a>
             </li>
@@ -101,14 +101,16 @@
 require &#39;matrix&#39;
 # Cell class
 class Cell
+  attr_reader :state
+  attr_writer :neighbors<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Attribute.md" target="_blank"><b>Attribute</b></a>        </span>      </div>      <span>Cell#neighbors is a writable attribute</span>          </div>  </li></ol>
   def initialize(live_or_die)
     @state = live_or_die == 1 ? &#39;*&#39; : &#39;.&#39;<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Control-Parameter.md" target="_blank"><b>ControlParameter</b></a>        </span>      </div>      <span>Cell#initialize is controlled by argument 'live_or_die'</span>          </div>  </li></ol>
     @neighbors = 0
   end
 
-  def state
-    @state
-  end
+  # def state
+  #   @state
+  # end
 
   def print_cell
     print @state
@@ -128,14 +130,14 @@ class Cell
     (row - 1..row + 1).each do |coord_x|
       (col - 1..col + 1).each do |coord_y|<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Nested-Iterators.md" target="_blank"><b>NestedIterators</b></a>        </span>      </div>      <span>Cell#count_neighbors contains iterators nested 2 deep</span>          </div>  </li></ol>
         next if (coord_x == row) &amp;&amp; (coord_y == col)
-        next unless Cell.valid_range?(coord_x, coord_y, matrix)
+        next unless valid_range?(coord_x, coord_y, matrix)
         @neighbors += matrix[coord_x][coord_y].alive? ? 1 : 0
       end
     end
     @neighbors
   end
 
-  def self.valid_range?(row, col, matrix)
+  def valid_range?(row, col, matrix)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Utility-Function.md" target="_blank"><b>UtilityFunction</b></a>        </span>      </div>      <span>Cell#valid_range? doesn't depend on instance state (maybe move it to another class?)</span>          </div>  </li></ol>
     return false if row.negative? || (row &gt;= matrix.size) 
     return false if col.negative? || (col &gt;= matrix[0].size) 
     true

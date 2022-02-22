@@ -5,6 +5,7 @@ require_relative 'cell'
 
 # Grid class
 class Grid
+  attr_reader :matrix
   def initialize(rows, cols)
     @rows = rows
     @cols = cols
